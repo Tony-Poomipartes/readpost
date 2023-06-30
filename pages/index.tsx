@@ -1,17 +1,9 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Song from '../components/Song/Song';
-// import Audio from '../components/Audio/Audio';
+import Audio from '../components/Audio/Audio';
 import styles from 'styles/home.module.css';
-import { type } from 'os';
-
-type Song = {
-id: number;
-title:string;
-artist: string;
-file: string;
-image: string;
-}
+// import { type } from 'os';
 
 
 
@@ -43,16 +35,17 @@ export const getStaticProps = async()=>{
   const allSongs:Song[] = SONGS;
   return {
     props:{
-      song: allSongs
+      songs: allSongs
     },
     revalidate: 3600
   }
 }
 
 
-const Home: NextPage<{ songs: Song[]}> = ({ songs }) =>{
+const Home: NextPage<{ songs: Song[] }> = ({ songs }) => {
   const [trackPlaying, setTrackPlaying] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
   return (
     <div className={styles.container}>
       <div className={styles.songPlaying}>
