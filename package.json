@@ -1,17 +1,83 @@
 {
-  "dependencies": {
-    "@react-icons/all-files": "^4.1.0",
-    "next": "^13.4.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1"
+  
+  "name": "readpost",
+  
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  
+  "version": "1.0.0",
+  
+  "main": "next.config.js",
+  
+  "scripts": {
+  
+    
+  "test": "echo \"Error: no test specified\" && exit 1"
+  
   },
+  
+  "repository": {
+  
+    
+  "type": "git",
+  
+    
+  "url": "git+https://github.com/Tony-Poomipartes/readpost.git"
+  
+  },
+  
+  "keywords": [],
+  
+  "author": "",
+  
+  "license": "ISC",
+  
+  "bugs": {
+  
+    
+  "url": "https://github.com/Tony-Poomipartes/readpost/issues"
+  
+  },
+  
+  "homepage": "https://github.com/Tony-Poomipartes/readpost#readme",
+  
   "devDependencies": {
-    "@types/node": "^20.3.2",
-    "@types/react": "^18.2.14",
-    "@types/react-dom": "^18.2.6",
-    "eslint": "^8.43.0",
-    "eslint-config-next": "^13.4.7",
-    "typescript": "^5.1.6"
+  
+    
+  "@types/node": "^20.3.2",
+  
+    
+  "@types/react": "^18.2.14",
+  
+    
+  "@types/react-dom": "^18.2.6",
+  
+    
+  "eslint": "^8.43.0",
+  
+    
+  "eslint-config-next": "^13.4.7",
+  
+    
+  "typescript": "^5.1.6"
+  
+  },
+  
+  "dependencies": {
+  
+    
+  "@react-icons/all-files": "^4.1.0",
+  
+    
+  "next": "^13.4.7",
+  
+    
+  "react": "^18.2.0",
+  
+    
+  "react-dom": "^18.2.0",
+  
+    
+  "react-icons": "^4.10.1"
+  
   }
 }
