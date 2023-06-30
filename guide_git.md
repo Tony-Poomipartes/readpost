@@ -47,7 +47,7 @@ SauceLabs)
 - 🏎 perf:     Amélioration des performances
 - ➕ refactor:  Changement du code qui ne change rien au fonctionnement
 - 💄  style:    Changement du style du code (sans changer la logique)
-- 🔌 test:      Modification des tests
+- 🔌 test:      Modification des tests pppp
 
 en anglais
 ---
