@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, SyntheticEvent } from "react"
 import { BsFillPauseFill, BsFillPlayFill, BsFillSkipBackwardFill, BsFillSkipForwardFill } from "react-icons/bs"
-import classes from 'components/Audio/Audio.module.css'
+import classes from './Audio.module.css'
 
 
 
@@ -33,6 +33,43 @@ const Audio =(props: {isPlaying: boolean, setIsPlaying: Function, songs: Song[],
     }
   }
 
+  const handlePreviousOrNext = (arg: string): void => {
+    let thisTrackPlaying = getNumberNextOrPreviousTrack(arg)
+    props.setTrackPlaying(thisTrackPlaying)
+  }
+
+  const getNumberNextOrPreviousTrack = (arg: string): number => {
+    let thisTrackPlaying = props.trackPlaying
+    let numberTracks = props.songs.length
+    if(arg === 'previous') {
+      thisTrackPlaying--
+      if(thisTrackPlaying < 0) {
+        thisTrackPlaying = numberTracks - 1
+      } 
+    }
+    if(arg === 'next') {
+      thisTrackPlaying++
+      if(thisTrackPlaying >= numberTracks) {
+        thisTrackPlaying = 0
+      }
+    }
+    return thisTrackPlaying
+  }
+
+  useEffect(() => {
+    if(props.isPlaying) {
+        if(audioRef.current) {
+            audioRef.current.play();
+        }
+    }
+    else {
+        if(audioRef.current) {
+            audioRef.current.pause();
+        }
+    }
+}, [props.isPlaying, props.trackPlaying])
+
+
 
   return(
     <div>
@@ -46,12 +83,12 @@ const Audio =(props: {isPlaying: boolean, setIsPlaying: Function, songs: Song[],
           className ={classes.controlsAudioPlayer}
           controls
         />
-        {/* // <BsFillSkipBackwardFill size={24} onClick={() => handlePreviousOrNext('previous')} /> */}
+        <BsFillSkipBackwardFill size={24} onClick={() => handlePreviousOrNext('previous')} />
         {props.isPlaying
           ? <BsFillPauseFill size={32} onClick={() => handlePause()} />
           : <BsFillPlayFill size={32} onClick={() => handlePlay()} /> 
         }
-        // <BsFillSkipForwardFill size={24} onClick={() => handlePreviousOrNext('next')} />
+        <BsFillSkipForwardFill size={24} onClick={() => handlePreviousOrNext('next')} />
       </div>
     </div>
   )
