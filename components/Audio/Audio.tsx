@@ -69,20 +69,63 @@ const Audio =(props: {isPlaying: boolean, setIsPlaying: Function, songs: Song[],
     }
 }, [props.isPlaying, props.trackPlaying])
 
+const handleTimeUpdate = (e: SyntheticEvent<EventTarget>): void => {
+  const current = (e.target as HTMLMediaElement).currentTime;
+  const duration = (e.target as HTMLMediaElement).duration
 
+  if(current == duration) {
+      handlePreviousOrNext('next')
+  }
+  else {
+      let timeSongInfo = {
+          currentTime: current,
+          duration: duration
+      }
+      setTimeSongInfo(timeSongInfo)
+  }
+}
+
+const getTime = (time: number): string => {
+  return (
+      Math.floor(time / 60) + ':' + ("0" + Math.floor(time % 60)).slice(-2)
+  )
+}
+
+const handleDragging = (e: SyntheticEvent<EventTarget>): void => {
+  console.log(e);
+  if(audioRef.current) {
+      audioRef.current.currentTime = parseInt((e.target as HTMLInputElement).value)
+  }
+  setTimeSongInfo({...timeSongInfo, currentTime: parseInt((e.target as HTMLInputElement).value)})
+}
 
   return(
     <div>
-      <div className={classes.rangeInfos}>
-
-      </div>
-      <div className={classes.controls}>
-        <audio
-          ref={audioRef}
-          src={props.songs[props.trackPlaying].file}
-          className ={classes.controlsAudioPlayer}
-          controls
+      <div className={classes.range__flex}>
+        <p>
+          {getTime(timeSongInfo.currentTime)}
+        </p>
+        <input 
+        type="range"
+        className={classes.range} 
+        min={0} 
+        max={timeSongInfo.duration} 
+        value={timeSongInfo.currentTime} 
+        onChange={handleDragging}
         />
+        <p>
+          {getTime(timeSongInfo.duration)}
+        </p>
+      </div>
+      <div className={classes.controls__flex}>
+        <audio 
+        onTimeUpdate={handleTimeUpdate} 
+        onLoadedMetadata={handleTimeUpdate} 
+        className={classes.controls__flex__audio__player} 
+        ref={audioRef} 
+        src={props.songs[props.trackPlaying].file} 
+        controls
+        ></audio>
         <BsFillSkipBackwardFill size={24} onClick={() => handlePreviousOrNext('previous')} />
         {props.isPlaying
           ? <BsFillPauseFill size={32} onClick={() => handlePause()} />
