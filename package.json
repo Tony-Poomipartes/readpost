@@ -9,10 +9,19 @@
   "main": "next.config.js",
   
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+  
+    
+  "dev": "next dev",
+  
+    
+  "build": "next build",
+  
+    
+  "start": "next start",
+  
+    
+  "lint": "next lint"
+  
   },
   
   "repository": {
@@ -68,6 +77,12 @@
   "@react-icons/all-files": "^4.1.0",
   
     
+  "canvas": "^2.11.2",
+  
+    
+  "colorthief": "^2.4.0",
+  
+    
   "next": "^13.4.7",
   
     
@@ -77,7 +92,10 @@
   "react-dom": "^18.2.0",
   
     
-  "react-icons": "^4.10.1"
+  "react-icons": "^4.10.1",
+  
+    
+  "sass": "^1.63.6"
   
   }
 }

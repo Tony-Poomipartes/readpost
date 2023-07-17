@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import Song from '../components/Song/Song';
+import ColorThief from 'colorthief';
+import Song, { SongDataWithColor } from '../components/Song/Song';
 import Audio from '../components/Audio/Audio';
-import styles from 'styles/home.module.css';
+import styles from 'styles/home.module.scss';
 // import { type } from 'os';
 
 
-
-const SONGS: Song[] = [
+const SONGS: SongDataWithColor[] = [
   {
     id: 0,
     title: 'Birdseye Blues',
@@ -31,8 +31,23 @@ const SONGS: Song[] = [
   }
 ]
 
-export const getStaticProps = async()=>{
-  const allSongs:Song[] = SONGS;
+export const getStaticProps = async () => {
+  const allSongs: SongDataWithColor[] = await Promise.all(SONGS.map(async (song) => {
+    const colorThief = new ColorThief();
+    const img = new Image();
+    img.src = song.image;
+    return {
+      ...song,
+      dominantColor: await new Promise<string>((resolve) => {
+        img.onload = () => {
+          const color = colorThief.getColor(img);
+          const rgbColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+          resolve(rgbColor);
+        };
+      }),
+    };
+  }));
+
   return {
     props:{
       songs: allSongs
@@ -42,18 +57,18 @@ export const getStaticProps = async()=>{
 }
 
 
-const Home: NextPage<{ songs: Song[] }> = ({ songs }) => {
+const Home: NextPage<{ songs: SongDataWithColor[] }> = ({ songs }) => {
   const [trackPlaying, setTrackPlaying] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   return (
     <div className={styles.container}>
       <div className={styles.songPlaying}>
-        <Song songs={songs[trackPlaying]} isPlaying={isPlaying} trackPlaying={trackPlaying} song={songs[trackPlaying]} />
+        <Song song={songs[trackPlaying]} isPlaying={isPlaying} trackPlaying={trackPlaying} />
       </div>
       <Audio isPlaying={isPlaying} setIsPlaying={setIsPlaying} songs={songs} trackPlaying={trackPlaying} setTrackPlaying={setTrackPlaying} />
     </div>
-  )
+  );
 }
 
 export default Home
